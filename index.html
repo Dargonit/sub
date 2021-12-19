@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Substrate</title>
+</head>
+<style>
+    .grid-container {
+        display: grid;
+    }
+
+    .grid-header {
+        padding: 1em;
+    }
+
+    .grid-recipe {
+        padding: 1em;
+    }
+
+    .grid-bulk {
+        padding: 1em;
+    }
+</style>
+<body>
+<div class="grid-container">
+    <div class="grid-header">Substrate generator</div>
+    <div class="grid-recipe">
+        <div>Coco: 640g</div>
+        <div>Verm: 2 quarts or 288g</div>
+        <div>Gypsum: 100g</div>
+        <div>Manure: 5% or less</div>
+        <div>Grain: 2 parts on 5 parts</div>
+    </div>
+    <div class="grid-bulk">
+        <div>Bulk</div>
+        <div id="coco-bulk">Coco:<input type="number" id="coco">g</div>
+        <div>Verm: <span id="verm-bulk"></span>g</div>
+	<div>Gypsom: <span id="gypsom-bulk"></span>g</div>
+	<div>Manure: <span id="manure-bulk"></span>g</div>
+
+	<div>For all in one</div>
+	<div>Grain: <span id="grain-bulk"></span>g</div>
+
+        <button onclick="calculate()">Calculate</button>
+    </div>
+
+</div>
+</body>
+
+<script>
+    function calculate() {
+	let verm = 288;
+	let gypsom = 100;
+	let water = 3784;
+	let coco = document.getElementById("coco").value;
+	let k = parseFloat(coco / 640).toFixed(2);
+	
+        let vermBulk = verm * k;
+	let gypsomBulk = gypsom * k
+
+	document.getElementById("verm-bulk").innerHTML = vermBulk;
+	document.getElementById("gypsom-bulk").innerHTML = gypsomBulk;
+
+	let manureBulk = (parseFloat(coco) + parseFloat(vermBulk) + parseFloat(gypsomBulk)+ parseFloat(water*k) ) / 100 * 5;
+	
+	document.getElementById("manure-bulk").innerHTML = parseFloat(manureBulk).toFixed(2);
+
+	let grainBulk = (parseFloat(coco)+ parseFloat(vermBulk) + parseFloat(gypsomBulk) + parseFloat(manureBulk)) /5 * 2 ;
+	
+	document.getElementById("grain-bulk").innerHTML = parseFloat(grainBulk).toFixed(2);
+    }
+</script>
+
+</html>
